@@ -37,18 +37,15 @@ function createCategoryTitle(categoryApiName, categoryName, resultList, movieArr
             movieCard.appendChild(movieTitle);
 
         }
-//Agregar modal
+        //Agregar modal
     }
+    console.log('Se ejecutó CreateCategory');
+    
 }
-
-
-
-
 
 //fetch básico con createCategory
 
 function fetchData(splice, categoryApiName, categoryName, resultList) {
-
     const movieUrl = `https://api.themoviedb.org/3/movie/${categoryApiName}?api_key=${apiKey}&page=${currentPage}`;
     fetch(movieUrl)
         .then(res => res.json())
@@ -62,25 +59,45 @@ function fetchData(splice, categoryApiName, categoryName, resultList) {
 
         });
     console.log(movieUrl)
+    console.log('Se ejecutó Fetch');
+
 };
 
-//Eventos
+function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList) {
+    const background = document.querySelector('.background');
+    background.classList.add('hide');
+    while (resultsPopular.children.length > 0) {
+        resultsPopular.children[0].remove();
+    }
+    while (resultsTopRated.children.length > 0) {
+        resultsTopRated.children[0].remove();
+    }
+    while (resultsUpcoming.children.length > 0) {
+        resultsUpcoming.children[0].remove();
+    }
+    while (resultsNowPlaying.children.length > 0) {
+        resultsNowPlaying.children[0].remove();
+    }
+    categoryPopular.children[0].classList.add('hide');
+    categoryTopRated.children[0].classList.add('hide');
+    categoryUpcoming.children[0].classList.add('hide');
+    categoryNowPlaying.children[0].classList.add('hide');
+
+    fetchData(splice, categoryApiName, categoryName, resultList);
+    console.log('Se ejecutó RemoveChild')
+};
+
+//Eventos básicos de onload
 document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular);
 document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
 document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
 document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying)
 
 
-const viewAllBtn = document.querySelectorAll('.view-all-btn')
+const viewAllBtn = document.getElementById('view-btn-popular')
+console.log(viewAllBtn);
 
-viewAllBtn[0].onclick = fetchData(false, 'popular', categoryPopular, resultsPopular)
 
-
-//viewAllBtn.onclick = alert("Hello! I am an alert box!!");
-
-//View All Buton Button, fetch false 
+//viewAllBtn.onclick = removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
 
 //document.search = fetchData(false) - me deja no hacer el splice (para la búsqueda)
-
-
-//crear evento para crear categoría sin splice y que se muestren en la página

@@ -132,12 +132,14 @@ nav ul li a {
 .results-page .category-list .category-container .results-list {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 0;
 }
 .results-page .category-list .category-container .results-list .movie-card {
   width: 20%;
   display: flex;
   flex-direction: column;
+  margin-top: 2em;
 }
 .results-page .category-list .category-container .results-list .movie-card img {
   height: 300px;
@@ -150,6 +152,10 @@ nav ul li a {
 }
 .results-page .category-list .category-container .results-list .movie-card .movie-title {
   margin: 0 auto;
+}
+
+.hide {
+  display: none;
 }
 
 /*# sourceMappingURL=estilo.css.map */

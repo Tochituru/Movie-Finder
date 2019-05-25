@@ -1,5 +1,8 @@
 @import "_general";
 @import "_navbar-search";
 @import "_background";
-@import "_resultspage"
+@import "_resultspage";
 
+.hide {
+    display: none;
+}
