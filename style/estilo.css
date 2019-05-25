@@ -1,0 +1,155 @@
+body,
+html {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  font-size: 11px;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  font-size: 11px;
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  font-size: 11px;
+}
+ul li {
+  cursor: pointer;
+}
+ul li .fas {
+  display: none;
+}
+
+.logo {
+  padding: 0;
+  height: 10vh;
+}
+.logo figure {
+  margin: 0;
+}
+.logo figure img {
+  width: 70%;
+  max-height: auto;
+  margin: 7px;
+}
+
+nav {
+  width: 6vw;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+}
+nav ul li {
+  padding: 20px 0;
+  text-align: center;
+  width: 5vw;
+  height: 6vh;
+  border: 1px solid black;
+}
+nav ul li a {
+  margin: 5px;
+  display: block;
+  font-size: 11px;
+}
+
+.header {
+  margin-left: 5vw;
+  width: 95vw;
+  position: fixed;
+  z-index: 1;
+}
+.header input {
+  width: 100%;
+  height: 10vh;
+  border: none;
+  padding-left: 5vw;
+  background: blue;
+}
+.header input[type=text]::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+}
+
+.background {
+  position: relative;
+}
+.background h1 {
+  text-align: center;
+  position: absolute;
+  left: 35%;
+  top: 35%;
+  font-size: 50px;
+}
+.background figure {
+  margin: 11vh 0 0 0;
+  height: 80vh;
+  overflow: hidden;
+}
+.background figure img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.5;
+}
+
+.results-page {
+  max-width: 95vw;
+  margin-left: 5vw;
+  display: flex;
+  flex-direction: column;
+  background: lightgray;
+}
+.results-page .category-list {
+  max-width: 90vw;
+}
+.results-page .category-list .category-container {
+  display: flex;
+  flex-direction: column;
+}
+.results-page .category-list .category-container .category-header {
+  display: flex;
+  padding: 0 3vw;
+  margin: 5vh 0 0 0;
+  justify-content: space-between;
+  font-size: 11px;
+}
+.results-page .category-list .category-container .category-header a {
+  cursor: pointer;
+}
+.results-page .category-list .category-container .results-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+.results-page .category-list .category-container .results-list .movie-card {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
+.results-page .category-list .category-container .results-list .movie-card img {
+  height: 300px;
+  width: auto;
+}
+.results-page .category-list .category-container .results-list .movie-card img:hover {
+  transform: scale(1.05, 1.05);
+  -webkit-transition: transform 1s;
+  transition: transform 1s;
+}
+.results-page .category-list .category-container .results-list .movie-card .movie-title {
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=estilo.css.map */

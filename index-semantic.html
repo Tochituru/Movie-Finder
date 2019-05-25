@@ -8,10 +8,10 @@
     <title>El fantástico mundo ded Moe</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="./style/estilo.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;subset=cyrillic" rel="stylesheet">
 
-    <link rel=icon href=favicon.png sizes="250x250" type="image/png">
+    <link rel=icon href=./assets/favicon.png sizes="250x250" type="image/png">
 </head>
 
 <body>
@@ -20,46 +20,87 @@
             <ul class="category-btn">
                 <li class="logo">
                     <figure>
-                            <img src="./favicon.png" alt="">
+                        <img src="./assets/favicon.png" alt="">
                     </figure>
                 </li>
                 <li class="popular">
                     <i class="far fa-play-circle"></i>
+                    <i class="fas fa-play-circle"></i>
                     <a href="#" class="popular-link">Popular</a>
                 </li>
                 <li class="top-rated">
                     <i class="far fa-play-circle"></i>
+                    <i class="fas fa-play-circle"></i>
                     <a href="#" class="top-rated-link">Top-Rated</a>
                 </li>
                 <li class="upcoming">
                     <i class="far fa-play-circle"></i>
+                    <i class="fas fa-play-circle"></i>
                     <a href="#" class="upcoming-link">Upcoming</a>
                 </li>
                 <li class="now-playing">
                     <i class="far fa-play-circle"></i>
-
+                    <i class="fas fa-play-circle"></i>
                     <a href="#" class="now-playing-link">Now Playing</a>
                 </li>
             </ul>
         </nav>
         <header class="header">
-            <section class="search-bar">
-                <input type="text" name="" id="" placeholder="search">
-            </section>
+            <input type="text" name="" id="" placeholder="Search your movie here">
         </header>
         <main>
             <article class="results-page">
                 <section class="background">
-                    <h1>The Movie DB App</h1>
                     <figure class="background-img">
-                        <img src="./batman.jpg" alt="">
+                        <img src="./assets/batman.jpg" alt="">
                     </figure>
+                    <h1>The Movie DB App</h1>
                 </section>
                 <section class="category-list">
+                    <div class="category-container category-popular">
+                        <div class="category-header">
+                            <h2 class="category-title">POPULAR MOVIES</h2>
+                            <a class="view-all-btn">View All</a>
+                        </div>
+                        <section class="result-section">
+                            <ul class="results-list" id="popular-list">
+                            </ul>
+                        </section>
+
+                    </div>
+                    <div class="category-container category-top-rated">
+                        <div class="category-header">
+                            <h2 class="category-title">TOP RATED MOVIES</h2>
+                            <a class="view-all-btn">View All</a>
+                        </div>
+                        <section class="result-section">
+                            <ul class="results-list" id="top-rated-list">
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="category-container category-upcoming">
+                        <div class="category-header">
+                            <h2 class="category-title">UPCOMING MOVIES</h2>
+                            <a class="view-all-btn">View All</a>
+                        </div>
+                        <section class="result-section">
+                            <ul class="results-list"id="upcoming-list">
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="category-container category-now-playing">
+                        <div class="category-header">
+                            <h2 class="category-title">NOW PLAYING MOVIES</h2>
+                            <a class="view-all-btn">View All</a>
+                        </div>
+                        <section class="result-section">
+                            <ul class="results-list" id="now-playing-list">
+                            </ul>
+                        </section>
+                    </div>
                 </section>
-
+                </section>
             </article>
-
         </main>
 
 

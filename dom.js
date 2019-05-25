@@ -1,47 +1,25 @@
 const apiKey = '8499e5e340f4886fd910c1fc4b904db1';
 const currentPage = 1;
-const categoryName = 'popular';
 const resultToInclude = 4;
 const resultToRemove = 15;
+const categoryPopular = document.querySelector('.category-popular')
+const categoryTopRated = document.querySelector('.category-top-rated')
+const categoryUpcoming = document.querySelector('.category-upcoming')
+const categoryNowPlaying = document.querySelector('.category-now-playing')
 
-function createCategoryTitle(categoryName, movieArray) {
+const resultsPopular = document.getElementById('popular-list')
+const resultsTopRated = document.getElementById('top-rated-list')
+const resultsUpcoming = document.getElementById('upcoming-list')
+const resultsNowPlaying = document.getElementById('now-playing-list')
+const movieList = document.querySelector('.results-list')
 
-    //titulo de categoría
-    let categoryList = document.querySelector('.category-list')
-    const categoryContainer = document.createElement('div');
-    categoryContainer.classList.add('category-container');
-    categoryContainer.classList.add(categoryName);
-    const categoryHeader = document.createElement('div');
-    categoryHeader.classList.add('category-header');
-
-    const categoryTitle = document.createElement('h2');
-    const UpperCaseTitle = categoryName.toUpperCase();
-    categoryTitle.classList.add('category-title');
-    categoryTitle.innerText = `${UpperCaseTitle} MOVIES`;
-
-    const viewAllBtn = document.createElement('h2');
-    viewAllBtn.classList.add('view-all-btn');
-    viewAllBtn.textContent = 'View All';
-
-    categoryList.appendChild(categoryContainer);
-    categoryContainer.appendChild(categoryHeader);
-    categoryHeader.appendChild(categoryTitle);
-    categoryHeader.appendChild(viewAllBtn);
-
-    //resultados-películas
-    const resultPage = document.querySelector('article');
-    const resultSection = document.createElement('section');
-    const resultList = document.createElement('ul');
-    resultList.classList.add('results-list');
-    resultSection.classList.add('result-section')
-
-    categoryContainer.appendChild(resultSection);
-    resultSection.appendChild(resultList);
+function createCategoryTitle(categoryApiName, categoryName, resultList, movieArray) {
 
     for (let i = 0; i < movieArray.length; i++) {
-        if (categoryName) {
+        if (categoryApiName) {
+
             const movieCard = document.createElement('li');
-            movieCard.classList.add('movie');
+            movieCard.classList.add('movie-card');
 
             const moviePicture = document.createElement('figure');
             moviePicture.classList.add('movie-img');
@@ -58,21 +36,20 @@ function createCategoryTitle(categoryName, movieArray) {
             moviePicture.appendChild(movieImg);
             movieCard.appendChild(movieTitle);
 
-        } else {
-            article.innerHTML = 'No results found';
         }
+//Agregar modal
     }
-    console.log(resultPage)
-
-
 }
 
 
 
 
-function fetchData(splice, categoryName) {
 
-    const movieUrl = `https://api.themoviedb.org/3/movie/${categoryName}?api_key=${apiKey}&page=${currentPage}`;
+//fetch básico con createCategory
+
+function fetchData(splice, categoryApiName, categoryName, resultList) {
+
+    const movieUrl = `https://api.themoviedb.org/3/movie/${categoryApiName}?api_key=${apiKey}&page=${currentPage}`;
     fetch(movieUrl)
         .then(res => res.json())
         .then(movie => {
@@ -80,22 +57,30 @@ function fetchData(splice, categoryName) {
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            createCategoryTitle(categoryName, movieObject);
+            console.log('objeto JSON', movieObject)
+            createCategoryTitle(categoryApiName, categoryName, resultList, movieObject);
+
         });
-        console.log(movieUrl)
+    console.log(movieUrl)
 };
 
+//Eventos
+document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular);
+document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
+document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
+document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying)
 
-document.onload = fetchData(true, 'popular');
-document.onload = fetchData(true, 'top_rated');
-document.onload = fetchData(true, 'upcoming');
-document.onload = fetchData(true, 'now_playing');
+
+const viewAllBtn = document.querySelectorAll('.view-all-btn')
+
+viewAllBtn[0].onclick = fetchData(false, 'popular', categoryPopular, resultsPopular)
 
 
+//viewAllBtn.onclick = alert("Hello! I am an alert box!!");
+
+//View All Buton Button, fetch false 
 
 //document.search = fetchData(false) - me deja no hacer el splice (para la búsqueda)
 
 
-//Crear categoría popular
-
-
+//crear evento para crear categoría sin splice y que se muestren en la página
