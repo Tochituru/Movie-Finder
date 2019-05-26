@@ -2,3 +2,6 @@
 View All
 Modal
 Search
+
+
+//cómo hacer que la imagen de background quede más centrada...

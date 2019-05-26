@@ -2,6 +2,9 @@ const apiKey = '8499e5e340f4886fd910c1fc4b904db1';
 const currentPage = 1;
 const resultToInclude = 4;
 const resultToRemove = 15;
+
+const bodyMain = document.querySelector('main');
+
 const categoryPopular = document.querySelector('.category-popular')
 const categoryTopRated = document.querySelector('.category-top-rated')
 const categoryUpcoming = document.querySelector('.category-upcoming')
@@ -13,7 +16,7 @@ const resultsUpcoming = document.getElementById('upcoming-list')
 const resultsNowPlaying = document.getElementById('now-playing-list')
 const movieList = document.querySelector('.results-list')
 
-function createCategoryTitle(categoryApiName, categoryName, resultList, movieArray) {
+function CreateResultsInCategory(categoryApiName, categoryName, resultList, movieArray) {
 
     for (let i = 0; i < movieArray.length; i++) {
         if (categoryApiName) {
@@ -37,7 +40,6 @@ function createCategoryTitle(categoryApiName, categoryName, resultList, movieArr
             movieCard.appendChild(movieTitle);
 
         }
-        //Agregar modal
     }
 }
 
@@ -52,7 +54,7 @@ function fetchData(splice, categoryApiName, categoryName, resultList) {
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            createCategoryTitle(categoryApiName, categoryName, resultList, movieObject);
+            CreateResultsInCategory(categoryApiName, categoryName, resultList, movieObject);
         });
 };
 
@@ -106,12 +108,13 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
     console.log(categoryName)
 };
 
-//const viewAllBtn = document.getElementsByClassName('view-all-btn')
-//console.log(viewAllBtn);
+const viewAllBtn = document.getElementsByClassName('view-all-btn')
+console.log(viewAllBtn);
 
-//viewAllBtn[0].addEventListener('click', console.log('on click test'));
 
-//removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
-//PROBLEMA: EL ONCLICK FUNCIONA EN EL ONLOAD
+viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
+viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated);
+viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming);
+viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying)
 
-//document.search = fetchData(false) - me deja no hacer el splice (para la búsqueda)
+

@@ -36,11 +36,11 @@
             -webkit-box-shadow: 5px 5px 10px 0px rgba(143, 143, 143, 0.5);
             -moz-box-shadow: 5px 5px 10px 0px rgba(143, 143, 143, 0.5);
             box-shadow: 5px 5px 10px 0px rgba(143, 143, 143, 0.5);
+            -webkit-transition: transform 1s;
+            transition: transform 1s;
           }
           img:hover {
             transform: scale(1.05, 1.05);
-            -webkit-transition: transform 1s;
-            transition: transform 1s;
           }
           .movie-title {
             margin: 0 auto;
