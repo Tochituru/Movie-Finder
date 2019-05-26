@@ -4,5 +4,10 @@
 @import "_resultspage";
 
 .hide {
-    display: none;
+  display: none !important;
+}
+
+.margin-top {
+    margin-top: 15vh;
+    margin-bottom: 10vh;
 }

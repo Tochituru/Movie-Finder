@@ -39,8 +39,6 @@ function createCategoryTitle(categoryApiName, categoryName, resultList, movieArr
         }
         //Agregar modal
     }
-    console.log('Se ejecutó CreateCategory');
-    
 }
 
 //fetch básico con createCategory
@@ -54,18 +52,22 @@ function fetchData(splice, categoryApiName, categoryName, resultList) {
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            console.log('objeto JSON', movieObject)
             createCategoryTitle(categoryApiName, categoryName, resultList, movieObject);
-
         });
-    console.log(movieUrl)
-    console.log('Se ejecutó Fetch');
-
 };
 
+
+//Eventos básicos de onload
+document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular);
+document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
+document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
+document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying)
+
 function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList) {
+
     const background = document.querySelector('.background');
     background.classList.add('hide');
+
     while (resultsPopular.children.length > 0) {
         resultsPopular.children[0].remove();
     }
@@ -78,26 +80,38 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
     while (resultsNowPlaying.children.length > 0) {
         resultsNowPlaying.children[0].remove();
     }
-    categoryPopular.children[0].classList.add('hide');
-    categoryTopRated.children[0].classList.add('hide');
-    categoryUpcoming.children[0].classList.add('hide');
-    categoryNowPlaying.children[0].classList.add('hide');
 
+    if (categoryName === categoryPopular) {
+        categoryPopular.classList.add('margin-top');
+        categoryTopRated.classList.add('hide');
+        categoryUpcoming.classList.add('hide');
+        categoryNowPlaying.classList.add('hide');
+    } else if (categoryName === categoryTopRated) {
+        categoryTopRated.classList.add('margin-top');
+        categoryPopular.classList.add('hide');
+        categoryUpcoming.classList.add('hide');
+        categoryNowPlaying.classList.add('hide');
+    } else if (categoryName === categoryUpcoming) {
+        categoryUpcoming.classList.add('margin-top');
+        categoryPopular.classList.add('hide');
+        categoryTopRated.classList.add('hide');
+        categoryNowPlaying.classList.add('hide');
+    } else if (categoryName === categoryNowPlaying) {
+        categoryNowPlaying.classList.add('margin-top');
+        categoryPopular.classList.add('hide');
+        categoryTopRated.classList.add('hide');
+        categoryUpcoming.classList.add('hide');
+    }
     fetchData(splice, categoryApiName, categoryName, resultList);
-    console.log('Se ejecutó RemoveChild')
+    console.log(categoryName)
 };
 
-//Eventos básicos de onload
-document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular);
-document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
-document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
-document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying)
+//const viewAllBtn = document.getElementsByClassName('view-all-btn')
+//console.log(viewAllBtn);
 
+//viewAllBtn[0].addEventListener('click', console.log('on click test'));
 
-const viewAllBtn = document.getElementById('view-btn-popular')
-console.log(viewAllBtn);
-
-
-//viewAllBtn.onclick = removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
+//removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
+//PROBLEMA: EL ONCLICK FUNCIONA EN EL ONLOAD
 
 //document.search = fetchData(false) - me deja no hacer el splice (para la búsqueda)
