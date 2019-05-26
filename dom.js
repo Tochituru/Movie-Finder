@@ -39,6 +39,87 @@ function CreateResultsInCategory(categoryApiName, categoryName, resultList, movi
             moviePicture.appendChild(movieImg);
             movieCard.appendChild(movieTitle);
 
+            //modal
+            const modalContainer = document.createElement('aside');
+            modalContainer.classList.add('modal-container');
+            const modalContent = document.createElement('div');
+            modalContent.classList.add('modal-content');
+            modalContent.innerText = 'This is a nice modal';
+
+            categoryName.appendChild(modalContainer);
+            //should be attached to bodyMain?
+            modalContainer.appendChild(modalContent);
+
+            const modalBackground = document.createElement('figure');
+            modalBackground.innerText = 'This is the modal Background';
+            const modalMovieTitle = document.createElement('h1');
+            modalMovieTitle.innerText = 'This is the movie title';
+            const modalMovieTagline = document.createElement('h2');
+            modalMovieTagline.innerText = 'This is the tagline';
+            const modalBackgroundImg = document.createElement('div');
+            modalBackgroundImg.innerText = 'This is the modal Background img';
+            //hacer el div en img
+
+            modalContent.appendChild(modalBackground);
+            modalBackground.appendChild(modalMovieTitle);
+            modalBackground.appendChild(modalMovieTagline);
+            modalBackground.appendChild(modalBackgroundImg);
+
+
+            const modalPoster = document.createElement('figure');
+            modalPoster.innerText = 'This is the poster';
+            const modalPosterImg = document.createElement('div');
+            modalPosterImg.innerText = 'This is the poster img';
+            //hacer el div en img
+
+            modalContent.appendChild(modalPoster);
+            modalPoster.appendChild(modalPosterImg);
+
+            const modalMovieDescription = document.createElement('article');
+            modalMovieDescription.innerText = 'This is the movie description';
+            const modalMovieSummary = document.createElement('section');
+            modalMovieSummary.innerText = 'This is the movie description';
+            const modalMovieGenreTitle = document.createElement('h3');
+            modalMovieGenreTitle.innerText = 'This is the Genre Title';
+            const modalMovieGenresContent = document.createElement('div');
+            modalMovieGenresContent.innerText = 'This is the Genre Content';
+            const modalMovieReleaseDateTitle = document.createElement('h3');
+            modalMovieReleaseDateTitle.innerText = 'This is the Release Title';
+            const modalMovieReleaseDateContent = document.createElement('div');
+            modalMovieReleaseDateContent.innerText = 'This is the Release content';
+
+            modalContent.appendChild(modalMovieDescription);
+            modalMovieDescription.appendChild(modalMovieSummary);
+            modalMovieDescription.appendChild(modalMovieGenreTitle);
+            modalMovieDescription.appendChild(modalMovieGenresContent);
+            modalMovieDescription.appendChild(modalMovieReleaseDateTitle);
+            modalMovieDescription.appendChild(modalMovieReleaseDateContent);
+
+
+
+            movieCard.onclick = function OpenModal() {
+                modalContainer.style.display = 'block';
+            };
+
+            // closeModalBtn.addEventListener('click', closeModal)
+
+            // function closeModal() {
+            //     modalContainer.style.display = 'none';
+            //     console.log('the modal is closed with click');
+            // }
+
+            // window.addEventListener('click', clickOutsideModal)
+
+            // function clickOutsideModal(e) {
+            //     if (e.target === modalContainer) {
+            //         modalContainer.style.display = 'none';
+            //         console.log('the modal is closed outside the windo');
+            //     }
+
+            // }
+
+
+
         }
     }
 }

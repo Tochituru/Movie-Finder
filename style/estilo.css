@@ -158,6 +158,24 @@ nav ul li a {
   margin: 0 auto;
 }
 
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(2, 0, 32, 0.9);
+}
+.modal-container .modal-content {
+  background-color: white;
+  margin: 15vh 15vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .hide {
   display: none !important;
 }
