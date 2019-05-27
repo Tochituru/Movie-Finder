@@ -39,85 +39,110 @@ function CreateResultsInCategory(categoryApiName, categoryName, resultList, movi
             moviePicture.appendChild(movieImg);
             movieCard.appendChild(movieTitle);
 
-            //modal
-            const modalContainer = document.createElement('aside');
-            modalContainer.classList.add('modal-container');
-            const modalContent = document.createElement('div');
-            modalContent.classList.add('modal-content');
-            modalContent.innerText = 'This is a nice modal';
+            const movieId = movieArray[i].id;
 
-            categoryName.appendChild(modalContainer);
-            //should be attached to bodyMain?
-            modalContainer.appendChild(modalContent);
+            //acá arranca el modal
+            const modalMovieURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+            fetch(modalMovieURL)
+                .then(res => res.json())
+                .then(modalMovieObject => {
+                    let modalMovie = modalMovieObject;
 
-            const modalBackground = document.createElement('figure');
-            modalBackground.innerText = 'This is the modal Background';
-            const modalMovieTitle = document.createElement('h1');
-            modalMovieTitle.innerText = 'This is the movie title';
-            const modalMovieTagline = document.createElement('h2');
-            modalMovieTagline.innerText = 'This is the tagline';
-            const modalBackgroundImg = document.createElement('div');
-            modalBackgroundImg.innerText = 'This is the modal Background img';
-            //hacer el div en img
-
-            modalContent.appendChild(modalBackground);
-            modalBackground.appendChild(modalMovieTitle);
-            modalBackground.appendChild(modalMovieTagline);
-            modalBackground.appendChild(modalBackgroundImg);
+                    //estos son los elementos del modal
+                    const modalContainer = document.createElement('div');
+                    modalContainer.classList.add('modal-container');
+                    const modalContent = document.createElement('aside');
+                    modalContent.classList.add('modal-content');
+                    categoryName.appendChild(modalContainer);
+                    modalContainer.appendChild(modalContent);
 
 
-            const modalPoster = document.createElement('figure');
-            modalPoster.innerText = 'This is the poster';
-            const modalPosterImg = document.createElement('div');
-            modalPosterImg.innerText = 'This is the poster img';
-            //hacer el div en img
+                    //el header del modal
+                    const modalHeader = document.createElement('section');
+                    modalHeader.classList.add('modal-header');
+                    modalHeader.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${modalMovie.backdrop_path})`;
 
-            modalContent.appendChild(modalPoster);
-            modalPoster.appendChild(modalPosterImg);
+                    const modalMovieDetails = document.createElement('section');
+                    modalMovieDetails.classList.add('modal-details');
 
-            const modalMovieDescription = document.createElement('article');
-            modalMovieDescription.innerText = 'This is the movie description';
-            const modalMovieSummary = document.createElement('section');
-            modalMovieSummary.innerText = 'This is the movie description';
-            const modalMovieGenreTitle = document.createElement('h3');
-            modalMovieGenreTitle.innerText = 'This is the Genre Title';
-            const modalMovieGenresContent = document.createElement('div');
-            modalMovieGenresContent.innerText = 'This is the Genre Content';
-            const modalMovieReleaseDateTitle = document.createElement('h3');
-            modalMovieReleaseDateTitle.innerText = 'This is the Release Title';
-            const modalMovieReleaseDateContent = document.createElement('div');
-            modalMovieReleaseDateContent.innerText = 'This is the Release content';
+                    const modalCloseBtn = document.createElement('div');
+                    modalCloseBtn.innerText = 'X';
+                    modalCloseBtn.setAttribute('id', 'closeBtn');
+                    modalCloseBtn.classList.add('closeBtn');
 
-            modalContent.appendChild(modalMovieDescription);
-            modalMovieDescription.appendChild(modalMovieSummary);
-            modalMovieDescription.appendChild(modalMovieGenreTitle);
-            modalMovieDescription.appendChild(modalMovieGenresContent);
-            modalMovieDescription.appendChild(modalMovieReleaseDateTitle);
-            modalMovieDescription.appendChild(modalMovieReleaseDateContent);
+                    const modalMovieTitle = document.createElement('h1');
+                    modalMovieTitle.classList.add('modal-movie-title');
+                    modalMovieTitle.innerText = modalMovie.title;
 
+                    const modalMovieTagline = document.createElement('h2');
+                    modalMovieTagline.classList.add('modal-movie-tagline');
+                    modalMovieTagline.innerText = modalMovie.tagline;
 
+                    const modalPoster = document.createElement('figure');
+                    modalPoster.classList.add('modal-poster');
+                    const modalPosterImg = document.createElement('img');
+                    modalPosterImg.setAttribute('src', `https://image.tmdb.org/t/p/original${modalMovie.poster_path}`);
 
-            movieCard.onclick = function OpenModal() {
-                modalContainer.style.display = 'block';
-            };
+                    modalContent.appendChild(modalHeader)
+                    modalHeader.appendChild(modalPoster);
+                    modalPoster.appendChild(modalPosterImg);
+                    modalHeader.appendChild(modalMovieDetails);
+                    modalMovieDetails.appendChild(modalCloseBtn);
+                    modalMovieDetails.appendChild(modalMovieTitle);
+                    modalMovieDetails.appendChild(modalMovieTagline);
 
-            // closeModalBtn.addEventListener('click', closeModal)
+                    const modalMovieDescription = document.createElement('section');
+                    modalMovieDescription.classList.add('modal-movie-description');
 
-            // function closeModal() {
-            //     modalContainer.style.display = 'none';
-            //     console.log('the modal is closed with click');
-            // }
+                    const modalMovieSummary = document.createElement('section');
+                    modalMovieSummary.classList.add('modal-text');
+                    modalMovieSummary.innerText = modalMovie.overview;
 
-            // window.addEventListener('click', clickOutsideModal)
+                    const modalMovieGenreTitle = document.createElement('h3');
+                    modalMovieGenreTitle.classList.add('modal-heading');
+                    modalMovieGenreTitle.innerText = 'GENRES';
 
-            // function clickOutsideModal(e) {
-            //     if (e.target === modalContainer) {
-            //         modalContainer.style.display = 'none';
-            //         console.log('the modal is closed outside the windo');
-            //     }
+                    const modalMovieGenresContent = document.createElement('div');
+                    modalMovieGenresContent.classList.add('modal-text')
+                    let movieGenres = modalMovie.genres.map((j) => {
+                        return j.name;
+                    });
+                    modalMovieGenresContent.innerText = movieGenres;
 
-            // }
+                    const modalMovieReleaseDateTitle = document.createElement('h3');
+                    modalMovieReleaseDateTitle.classList.add('modal-heading');
+                    modalMovieReleaseDateTitle.innerText = 'RELEASE DATE';
+                    const modalMovieReleaseDateContent = document.createElement('div');
+                    modalMovieReleaseDateContent.innerText = modalMovie.release_date;
+                    modalMovieReleaseDateContent.classList.add('modal-text')
 
+                    modalContent.appendChild(modalMovieDescription);
+                    modalMovieDescription.appendChild(modalMovieSummary);
+                    modalMovieDescription.appendChild(modalMovieGenreTitle);
+                    modalMovieDescription.appendChild(modalMovieGenresContent);
+                    modalMovieDescription.appendChild(modalMovieReleaseDateTitle);
+                    modalMovieDescription.appendChild(modalMovieReleaseDateContent);
+
+                    movieCard.onclick = function OpenModal() {
+                        modalContainer.style.display = 'block';
+                    };
+
+                    modalCloseBtn.addEventListener('click', closeModal)
+
+                    function closeModal() {
+                        modalContainer.style.display = 'none';
+                    }
+
+                    window.addEventListener('click', clickOutsideModal)
+
+                    function clickOutsideModal(e) {
+                        if (e.target === modalContainer) {
+                            modalContainer.style.display = 'none';
+                        }
+
+                    }
+                }
+                )
 
 
         }
@@ -186,11 +211,9 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         categoryUpcoming.classList.add('hide');
     }
     fetchData(splice, categoryApiName, categoryName, resultList);
-    console.log(categoryName)
 };
 
-const viewAllBtn = document.getElementsByClassName('view-all-btn')
-console.log(viewAllBtn);
+const viewAllBtn = document.getElementsByClassName('view-all-btn');
 
 
 viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
@@ -198,4 +221,94 @@ viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categ
 viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming);
 viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying)
 
+const logoBtn = document.querySelector('.logo');
 
+logoBtn.onclick = () => {
+
+    const background = document.querySelector('.background');
+    background.classList.remove('hide');
+
+
+    while (resultsPopular.children.length > 0) {
+        resultsPopular.children[0].remove();
+    }
+    while (resultsTopRated.children.length > 0) {
+        resultsTopRated.children[0].remove();
+    }
+    while (resultsUpcoming.children.length > 0) {
+        resultsUpcoming.children[0].remove();
+    }
+    while (resultsNowPlaying.children.length > 0) {
+        resultsNowPlaying.children[0].remove();
+    }
+
+    categoryPopular.classList.remove('hide');
+    categoryPopular.classList.remove('margin-top');
+    categoryTopRated.classList.remove('hide');
+    categoryUpcoming.classList.remove('margin-top');
+    categoryUpcoming.classList.remove('hide');
+    categoryTopRated.classList.remove('margin-top');
+    categoryNowPlaying.classList.remove('hide');
+    categoryNowPlaying.classList.remove('margin-top');
+
+    fetchData(true, 'popular', categoryPopular, resultsPopular);
+    console.log(categoryPopular);
+    fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
+    console.log(categoryTopRated);
+    fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
+    console.log(categoryUpcoming);
+    fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying);
+    console.log(categoryNowPlaying);
+
+}
+
+const popularBtn = document.querySelector('.popular');
+const topRatedBtn = document.querySelector('.top-rated');
+const upcomingBtn = document.querySelector('.upcoming');
+console.log(upcomingBtn);
+
+const nowPlayingBtn = document.querySelector('.now-playing');
+
+popularBtn.onclick = () => {
+    removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
+    if (!categoryPopular.classList.contains('margin-top')) { categoryPopular.classList.add('margin-top') };
+    if (categoryPopular.classList.contains('hide')) {
+        categoryPopular.classList.remove('hide')
+    };
+    if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
+    if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide') };
+    if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+};
+topRatedBtn.onclick = () => {
+    removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated);
+    if (!categoryTopRated.classList.contains('margin-top')) { categoryTopRated.classList.add('margin-top') };
+    if (categoryTopRated.classList.contains('hide')) {
+        categoryTopRated.classList.remove('hide')
+    };
+    if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
+    if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide') };
+    if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+};
+upcomingBtn.onclick = () => {
+    removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming);
+    if (!categoryUpcoming.classList.contains('margin-top')) { categoryUpcoming.classList.add('margin-top') };
+    if (categoryUpcoming.classList.contains('hide')) {
+        categoryUpcoming.classList.remove('hide')
+    };
+    if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
+    if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
+    if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+};
+nowPlayingBtn.onclick = () => {
+    removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying);
+    categoryUpcoming.classList.add('hide');
+
+    if (!categoryNowPlaying.classList.contains('margin-top')) { categoryNowPlaying.classList.add('margin-top') };
+    if (categoryNowPlaying.classList.contains('hide')) {
+        categoryNowPlaying.classList.remove('hide')
+    };
+    if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
+    if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
+    if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide'); };
+
+}

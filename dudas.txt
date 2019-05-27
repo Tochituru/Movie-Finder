@@ -4,4 +4,7 @@ Modal
 Search
 
 
-//cómo hacer que la imagen de background quede más centrada...
+//cómo hacer el overlay a la imagen de fondo
+//cómo obligar que el scroll sea de todo el background, no solo el modal
+
+falta el numero results y el load more

@@ -1,17 +1,64 @@
 .modal-container {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    background-color: rgb(2, 0, 32, 0.9);
-    .modal-content {
-        background-color: white;
-        margin: 15vh 15vw;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgb(2, 0, 32, 0.9);
+  .modal-content {
+    margin: 5vh 25vw;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    .modal-header {
+      margin: 0;
+      background-repeat: no-repeat;
+      background-size: 50vw auto;
+      height: 50vh;
+      display: flex;
+      .modal-poster {
+        width: 25vw;
+        height: auto;
+        margin-top: 5vh;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+      .modal-details {
+        color: white;
         display: flex;
         flex-direction: column;
+        .closeBtn {
+          text-align: right;
+          font-size: 20px;
+          font-weight: bolder;
+          margin: 0;
+        }
+        .modal-movie-title {
+          font-size: 30px;
+          font-weight: lighter;
+          margin: 10vh 2vw 3vh 1vh;
+        }
+        .modal-movie-tagline {
+          margin: 0;
+          font-weight: lighter;
+          font-size: 15px;
+        }
+      }
     }
+    .modal-movie-description {
+      display: flex;
+      flex-direction: column;
+      margin: 5vh 5vw 5vh 25vw;
+      font-size: 15px;
+    }
+    .modal-heading {
+      color: purple;
+    }
+  }
 }
+
