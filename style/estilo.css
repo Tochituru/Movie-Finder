@@ -109,6 +109,7 @@ nav ul li a {
 .results-page {
   max-width: 95vw;
   margin-left: 5vw;
+  padding-bottom: 5vh;
   display: flex;
   flex-direction: column;
   background: #DDDAE8;
