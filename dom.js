@@ -19,7 +19,7 @@ const resultsUpcoming = document.getElementById('upcoming-list');
 const resultsNowPlaying = document.getElementById('now-playing-list');
 const resultsSearch = document.getElementById('search-results-list');
 
-function CreateResultsInCategory(categoryName, resultList, movieArray) {
+function CreateResultsInCategory(categoryName, resultList, movieArray, currentPage) {
 
     for (let i = 0; i < movieArray.length; i++) {
         const movieCard = document.createElement('li');
@@ -149,7 +149,7 @@ function CreateResultsInCategory(categoryName, resultList, movieArray) {
 
 //fetch básico con createCategory
 
-function fetchData(splice, categoryApiName, categoryName, resultList) {
+function fetchData(splice, categoryApiName, categoryName, resultList, currentPage) {
     const movieUrl = `https://api.themoviedb.org/3/movie/${categoryApiName}?api_key=${apiKey}&page=${currentPage}`;
     fetch(movieUrl)
         .then(res => res.json())
@@ -158,21 +158,19 @@ function fetchData(splice, categoryApiName, categoryName, resultList) {
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            CreateResultsInCategory(categoryName, resultList, movieObject);
+            CreateResultsInCategory(categoryName, resultList, movieObject, currentPage);
             console.log(movieUrl);
         });
-
-
 };
 
 
 //Eventos básicos de onload
-document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular);
-document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
-document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
-document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying)
+document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular, currentPage);
+document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
+document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
+document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage)
 
-function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList) {
+function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList, currentPage) {
     background.classList.add('hide');
 
     while (resultsSearch.children.length > 0) {
@@ -216,16 +214,27 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         categoryUpcoming.classList.add('hide');
         categorySearch.classList.add('hide');
     }
-    fetchData(splice, categoryApiName, categoryName, resultList);
+
+    fetchData(splice, categoryApiName, categoryName, resultList, currentPage);
+
+    const loadMoreBtn = document.createElement('button');
+    loadMoreBtn.innerText = 'LOAD MORE';
+    loadMoreBtn.classList.add('load-more');
+    console.log(categoryName.children);
+
+    if (!categoryName.children === loadMoreBtn) {
+        categoryName.appendChild(loadMoreBtn);
+    }
+
 };
 
 const viewAllBtn = document.getElementsByClassName('view-all-btn');
 
 
-viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
-viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated);
-viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming);
-viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying)
+viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, currentPage);
+viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
+viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
+viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage)
 
 const logoBtn = document.querySelector('.logo');
 
@@ -256,10 +265,10 @@ logoBtn.onclick = () => {
     categoryNowPlaying.classList.remove('margin-top');
     categorySearch.classList.add('hide');
 
-    fetchData(true, 'popular', categoryPopular, resultsPopular);
-    fetchData(true, 'top_rated', categoryTopRated, resultsTopRated);
-    fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming);
-    fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying);
+    fetchData(true, 'popular', categoryPopular, resultsPopular, currentPage);
+    fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
+    fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
+    fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage);
 }
 
 const popularBtn = document.querySelector('.popular');
@@ -269,7 +278,7 @@ const upcomingBtn = document.querySelector('.upcoming');
 const nowPlayingBtn = document.querySelector('.now-playing');
 
 popularBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular);
+    removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, currentPage);
     if (!categoryPopular.classList.contains('margin-top')) { categoryPopular.classList.add('margin-top') };
     if (categoryPopular.classList.contains('hide')) {
         categoryPopular.classList.remove('hide')
@@ -279,7 +288,7 @@ popularBtn.onclick = () => {
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
 };
 topRatedBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated);
+    removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
     if (!categoryTopRated.classList.contains('margin-top')) { categoryTopRated.classList.add('margin-top') };
     if (categoryTopRated.classList.contains('hide')) {
         categoryTopRated.classList.remove('hide')
@@ -289,7 +298,7 @@ topRatedBtn.onclick = () => {
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
 };
 upcomingBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming);
+    removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
     if (!categoryUpcoming.classList.contains('margin-top')) { categoryUpcoming.classList.add('margin-top') };
     if (categoryUpcoming.classList.contains('hide')) {
         categoryUpcoming.classList.remove('hide')
@@ -299,7 +308,7 @@ upcomingBtn.onclick = () => {
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
 };
 nowPlayingBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying);
+    removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage);
     categoryUpcoming.classList.add('hide');
 
     if (!categoryNowPlaying.classList.contains('margin-top')) { categoryNowPlaying.classList.add('margin-top') };
@@ -316,7 +325,7 @@ nowPlayingBtn.onclick = () => {
 //Search 
 const searchElement = document.querySelector('input');
 
-function SearchElements(categoryName, resultList) {
+function SearchElements(categoryName, resultList, currentPage) {
 
     background.classList.add('hide');
 
@@ -340,18 +349,14 @@ function SearchElements(categoryName, resultList) {
         .then(res => res.json())
         .then(searchMovie => {
             let searchMovieObject = searchMovie.results;
-            CreateResultsInCategory(categoryName, resultList, searchMovieObject);
+            CreateResultsInCategory(categoryName, resultList, searchMovieObject, currentPage);
         });
 };
 
 searchElement.addEventListener('keydown', e => {
     if (e.keyCode === 13) {
         e.preventDefault();
-        SearchElements(categorySearch, resultsSearch);
-        console.log('the search has worked');
-    } else {
-        console.log('these are not the searches you are looking for');
-
+        SearchElements(categorySearch, resultsSearch, currentPage);
     }
 })
 
