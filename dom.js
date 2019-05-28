@@ -180,7 +180,7 @@ document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowP
 
 function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList, currentPage) {
     background.classList.add('hide');
-
+    pageLoaded = 1;
 
     while (resultsSearch.children.length > 0) {
         resultsSearch.children[0].remove();
@@ -232,18 +232,22 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
 
 const viewAllBtn = document.getElementsByClassName('view-all-btn');
 
-function loadMore(additionalPage, splice, categoryApiName, categoryName, resultList) {
-    additionalPage += 1;
-    fetchData(splice, categoryApiName, categoryName, resultList, additionalPage);
-    console.log('loadmorepage', additionalPage);
+function loadMore(splice, categoryApiName, categoryName, resultList) {
+    pageLoaded += 1;
+    fetchData(splice, categoryApiName, categoryName, resultList, pageLoaded);
 }
 
 viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, pageLoaded);
-loadMoreBtn[0].onclick = () => loadMore(pageLoaded, false, 'popular', categoryPopular, resultsPopular);
+loadMoreBtn[0].onclick = () => loadMore(false, 'popular', categoryPopular, resultsPopular);
 
 viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
+loadMoreBtn[1].onclick = () => loadMore(false, 'top_rated', categoryTopRated, resultsTopRated);
+
 viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
+loadMoreBtn[2].onclick = () => loadMore(false, 'upcoming', categoryUpcoming, resultsUpcoming);
+
 viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded)
+loadMoreBtn[3].onclick = () => loadMore(false, 'now_playing', categoryNowPlaying, resultsNowPlaying);
 
 const logoBtn = document.querySelector('.logo');
 
@@ -360,6 +364,7 @@ function SearchElements(categoryName, resultList, currentPage) {
             let searchMovieObject = searchMovie.results;
             CreateResultsInCategory(categoryName, resultList, searchMovieObject, pageLoaded);
             loadMoreBtn[4].classList.remove('hide');
+            console.log(searchMovieUrl);
         });
 };
 
@@ -367,6 +372,6 @@ searchElement.addEventListener('keydown', e => {
     if (e.keyCode === 13) {
         e.preventDefault();
         SearchElements(categorySearch, resultsSearch, pageLoaded);
+        loadMoreBtn[0].onclick = () => loadMore(categorySearch, resultsSearch);
     }
 })
-
