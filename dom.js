@@ -1,5 +1,5 @@
 const apiKey = '8499e5e340f4886fd910c1fc4b904db1';
-const currentPage = 1;
+let pageLoaded = 1;
 const resultToInclude = 4;
 const resultToRemove = 15;
 
@@ -18,6 +18,7 @@ const resultsTopRated = document.getElementById('top-rated-list');
 const resultsUpcoming = document.getElementById('upcoming-list');
 const resultsNowPlaying = document.getElementById('now-playing-list');
 const resultsSearch = document.getElementById('search-results-list');
+const loadMoreBtn = document.getElementsByClassName('load-more');
 
 function CreateResultsInCategory(categoryName, resultList, movieArray, currentPage) {
 
@@ -30,6 +31,9 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
 
         const movieImg = document.createElement('img');
         movieImg.setAttribute('src', `https://image.tmdb.org/t/p/original${movieArray[i].poster_path}`);
+        if (movieArray[i].poster_path === null) {
+            movieImg.setAttribute('src', './assets/no-pic-available.png');
+        }
 
         const movieTitle = document.createElement('figcaption');
         movieTitle.classList.add('movie-title')
@@ -62,7 +66,9 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
                 const modalHeader = document.createElement('section');
                 modalHeader.classList.add('modal-header');
                 modalHeader.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${modalMovie.backdrop_path})`;
-
+                if (modalMovie.backdrop_path === null) {
+                    modalHeader.style.backgroundImage = `url(./assets/no-img-available.jpg)`;
+                }
                 const modalMovieDetails = document.createElement('section');
                 modalMovieDetails.classList.add('modal-details');
 
@@ -83,6 +89,9 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
                 modalPoster.classList.add('modal-poster');
                 const modalPosterImg = document.createElement('img');
                 modalPosterImg.setAttribute('src', `https://image.tmdb.org/t/p/original${modalMovie.poster_path}`);
+                if (movieArray[i].poster_path === null) {
+                    movieImg.setAttribute('src', './assets/no-pic-available.png');
+                }
 
                 modalContent.appendChild(modalHeader)
                 modalHeader.appendChild(modalPoster);
@@ -158,20 +167,20 @@ function fetchData(splice, categoryApiName, categoryName, resultList, currentPag
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            CreateResultsInCategory(categoryName, resultList, movieObject, currentPage);
-            console.log(movieUrl);
+            CreateResultsInCategory(categoryName, resultList, movieObject, pageLoaded);
         });
 };
 
 
 //Eventos básicos de onload
-document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular, currentPage);
-document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
-document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
-document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage)
+document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular, pageLoaded);
+document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
+document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
+document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded)
 
 function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList, currentPage) {
     background.classList.add('hide');
+
 
     while (resultsSearch.children.length > 0) {
         resultsSearch.children[0].remove();
@@ -195,46 +204,47 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         categoryUpcoming.classList.add('hide');
         categoryNowPlaying.classList.add('hide');
         categorySearch.classList.add('hide');
+        loadMoreBtn[0].classList.remove('hide');
     } else if (categoryName === categoryTopRated) {
         categoryTopRated.classList.add('margin-top');
         categoryPopular.classList.add('hide');
         categoryUpcoming.classList.add('hide');
         categoryNowPlaying.classList.add('hide');
         categorySearch.classList.add('hide');
+        loadMoreBtn[1].classList.remove('hide');
     } else if (categoryName === categoryUpcoming) {
         categoryUpcoming.classList.add('margin-top');
         categoryPopular.classList.add('hide');
         categoryTopRated.classList.add('hide');
         categoryNowPlaying.classList.add('hide');
         categorySearch.classList.add('hide');
+        loadMoreBtn[2].classList.remove('hide');
     } else if (categoryName === categoryNowPlaying) {
         categoryNowPlaying.classList.add('margin-top');
         categoryPopular.classList.add('hide');
         categoryTopRated.classList.add('hide');
         categoryUpcoming.classList.add('hide');
         categorySearch.classList.add('hide');
+        loadMoreBtn[3].classList.remove('hide');
     }
 
     fetchData(splice, categoryApiName, categoryName, resultList, currentPage);
 
-    const loadMoreBtn = document.createElement('button');
-    loadMoreBtn.innerText = 'LOAD MORE';
-    loadMoreBtn.classList.add('load-more');
-    console.log(categoryName.children);
 
-    if (!categoryName.children === loadMoreBtn) {
-        categoryName.appendChild(loadMoreBtn);
-    }
+    loadMoreBtn.addEventListener('click', (pageLoaded) => {
+        pageLoaded++;
+        fetchData(splice, categoryApiName, categoryName, resultList, pageLoaded);
+    })
 
 };
 
 const viewAllBtn = document.getElementsByClassName('view-all-btn');
 
 
-viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, currentPage);
-viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
-viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
-viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage)
+viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, pageLoaded);
+viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
+viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
+viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded)
 
 const logoBtn = document.querySelector('.logo');
 
@@ -265,10 +275,10 @@ logoBtn.onclick = () => {
     categoryNowPlaying.classList.remove('margin-top');
     categorySearch.classList.add('hide');
 
-    fetchData(true, 'popular', categoryPopular, resultsPopular, currentPage);
-    fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
-    fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
-    fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage);
+    fetchData(true, 'popular', categoryPopular, resultsPopular, pageLoaded);
+    fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
+    fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
+    fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded);
 }
 
 const popularBtn = document.querySelector('.popular');
@@ -278,7 +288,7 @@ const upcomingBtn = document.querySelector('.upcoming');
 const nowPlayingBtn = document.querySelector('.now-playing');
 
 popularBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, currentPage);
+    removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, pageLoaded);
     if (!categoryPopular.classList.contains('margin-top')) { categoryPopular.classList.add('margin-top') };
     if (categoryPopular.classList.contains('hide')) {
         categoryPopular.classList.remove('hide')
@@ -288,7 +298,7 @@ popularBtn.onclick = () => {
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
 };
 topRatedBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, currentPage);
+    removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
     if (!categoryTopRated.classList.contains('margin-top')) { categoryTopRated.classList.add('margin-top') };
     if (categoryTopRated.classList.contains('hide')) {
         categoryTopRated.classList.remove('hide')
@@ -298,7 +308,7 @@ topRatedBtn.onclick = () => {
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
 };
 upcomingBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, currentPage);
+    removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
     if (!categoryUpcoming.classList.contains('margin-top')) { categoryUpcoming.classList.add('margin-top') };
     if (categoryUpcoming.classList.contains('hide')) {
         categoryUpcoming.classList.remove('hide')
@@ -308,7 +318,7 @@ upcomingBtn.onclick = () => {
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
 };
 nowPlayingBtn.onclick = () => {
-    removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, currentPage);
+    removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded);
     categoryUpcoming.classList.add('hide');
 
     if (!categoryNowPlaying.classList.contains('margin-top')) { categoryNowPlaying.classList.add('margin-top') };
@@ -349,14 +359,15 @@ function SearchElements(categoryName, resultList, currentPage) {
         .then(res => res.json())
         .then(searchMovie => {
             let searchMovieObject = searchMovie.results;
-            CreateResultsInCategory(categoryName, resultList, searchMovieObject, currentPage);
+            CreateResultsInCategory(categoryName, resultList, searchMovieObject, pageLoaded);
+            loadMoreBtn[4].classList.remove('hide');
         });
 };
 
 searchElement.addEventListener('keydown', e => {
     if (e.keyCode === 13) {
         e.preventDefault();
-        SearchElements(categorySearch, resultsSearch, currentPage);
+        SearchElements(categorySearch, resultsSearch, pageLoaded);
     }
 })
 
