@@ -1,10 +1,10 @@
 .results-page {
   max-width: 95vw;
-  margin-left:5vw;
+  margin-left: 5vw;
   padding-bottom: 5vh;
   display: flex;
   flex-direction: column;
-  background: #DDDAE8;
+  background: #dddae8;
 
   .category-list {
     max-width: 90vw;
@@ -47,6 +47,14 @@
             margin: 0 auto;
           }
         }
+      }
+      .load-more {
+        text-align: center;
+        background: green;
+        color: white;
+        margin: 5vh 40vw;
+        padding: 2vh 2vw;
+        cursor: pointer;
       }
     }
   }

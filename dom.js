@@ -197,6 +197,7 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
     while (resultsNowPlaying.children.length > 0) {
         resultsNowPlaying.children[0].remove();
     }
+    fetchData(splice, categoryApiName, categoryName, resultList, currentPage);
 
     if (categoryName === categoryPopular) {
         categoryPopular.classList.add('margin-top');
@@ -227,21 +228,19 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         categorySearch.classList.add('hide');
         loadMoreBtn[3].classList.remove('hide');
     }
-
-    fetchData(splice, categoryApiName, categoryName, resultList, currentPage);
-
-
-    loadMoreBtn.addEventListener('click', (pageLoaded) => {
-        pageLoaded++;
-        fetchData(splice, categoryApiName, categoryName, resultList, pageLoaded);
-    })
-
 };
 
 const viewAllBtn = document.getElementsByClassName('view-all-btn');
 
+function loadMore(additionalPage, splice, categoryApiName, categoryName, resultList) {
+    additionalPage += 1;
+    fetchData(splice, categoryApiName, categoryName, resultList, additionalPage);
+    console.log('loadmorepage', additionalPage);
+}
 
 viewAllBtn[0].onclick = () => removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, pageLoaded);
+loadMoreBtn[0].onclick = () => loadMore(pageLoaded, false, 'popular', categoryPopular, resultsPopular);
+
 viewAllBtn[1].onclick = () => removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
 viewAllBtn[2].onclick = () => removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
 viewAllBtn[3].onclick = () => removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded)
@@ -370,5 +369,4 @@ searchElement.addEventListener('keydown', e => {
         SearchElements(categorySearch, resultsSearch, pageLoaded);
     }
 })
-
 

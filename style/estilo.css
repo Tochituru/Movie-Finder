@@ -112,7 +112,7 @@ nav ul li a {
   padding-bottom: 5vh;
   display: flex;
   flex-direction: column;
-  background: #DDDAE8;
+  background: #dddae8;
 }
 .results-page .category-list {
   max-width: 90vw;
@@ -157,6 +157,14 @@ nav ul li a {
 }
 .results-page .category-list .category-container .results-list .movie-card .movie-title {
   margin: 0 auto;
+}
+.results-page .category-list .category-container .load-more {
+  text-align: center;
+  background: green;
+  color: white;
+  margin: 5vh 40vw;
+  padding: 2vh 2vw;
+  cursor: pointer;
 }
 
 .modal-container {
