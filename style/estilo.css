@@ -1,10 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
 body,
 html {
   margin: 0px;
   padding: 0px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-weight: lighter;
   font-size: 11px;
+  color: #00897b;
 }
 
 a:link,
@@ -12,19 +14,20 @@ a:visited,
 a:hover,
 a:active {
   text-decoration: none;
-  font-family: "Roboto", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-weight: lighter;
   font-size: 11px;
-  color: black;
+  color: #00897b;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   font-weight: lighter;
   font-size: 11px;
+  color: #00897b;
 }
 ul li {
   cursor: pointer;
@@ -41,7 +44,7 @@ ul li .fas {
   margin: 0;
 }
 .logo figure img {
-  width: 70%;
+  max-width: 50px;
   max-height: auto;
   margin: 7px;
 }
@@ -57,12 +60,21 @@ nav ul li {
   text-align: center;
   width: 5vw;
   height: 6vh;
-  border: 1px solid black;
+  display: block;
 }
 nav ul li a {
   margin: 5px;
   display: block;
-  font-size: 11px;
+}
+nav ul li:hover {
+  background: #52d2bc;
+  color: white;
+}
+nav ul li:hover .far {
+  display: none;
+}
+nav ul li:hover .fas {
+  display: block;
 }
 
 .header {
@@ -71,16 +83,30 @@ nav ul li a {
   position: fixed;
   z-index: 1;
 }
-.header input {
+.header .search-container {
   width: 100%;
   height: 10vh;
   border: none;
-  padding-left: 5vw;
-  background: blue;
+  display: flex;
+  background-color: white;
 }
-.header input[type=text]::placeholder {
-  font-family: "Roboto", sans-serif;
+.header .search-container .fas {
+  align-self: center;
+  padding-left: 5%;
+  color: #a7e6d7;
+  font-size: 20px;
+}
+.header .search-container input {
+  width: 90%;
+  border: none;
+}
+.header .search-container input[type=text]::placeholder {
+  font-family: "Josefin Sans", sans-serif;
   font-weight: lighter;
+  font-size: 11px;
+  color: #00897b;
+  font-size: 20px;
+  padding: 5px;
 }
 
 .background {
@@ -92,18 +118,19 @@ nav ul li a {
   left: 35%;
   top: 35%;
   font-size: 50px;
+  text-shadow: 3px 3px 5px #52d2bc;
 }
 .background figure {
-  margin: 11vh 0 0 0;
-  height: 50vh;
+  margin: 0;
+  height: 60vh;
   overflow: hidden;
+  background-color: #52d2bc;
+  background-size: cover;
+  mix-blend-mode: overlay;
 }
 .background figure img {
   width: 100%;
   height: auto;
-  object-fit: cover;
-  opacity: 0.5;
-  object-position: 0 -50%;
 }
 
 .results-page {
@@ -112,7 +139,7 @@ nav ul li a {
   padding-bottom: 5vh;
   display: flex;
   flex-direction: column;
-  background: #dddae8;
+  background: #a7e6d7;
 }
 .results-page .category-list {
   max-width: 90vw;
@@ -120,18 +147,29 @@ nav ul li a {
 .results-page .category-list .category-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 3vh;
 }
 .results-page .category-list .category-container .category-header {
   display: flex;
   padding: 0 3vw;
   margin: 5vh 0 0 0;
   justify-content: space-between;
-  font-size: 11px;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 15px;
+  color: #00897b;
 }
 .results-page .category-list .category-container .category-header a {
   cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+.results-page .category-list .category-container .category-header .category-title {
+  margin: 0;
 }
 .results-page .category-list .category-container .results-list {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 15px;
+  color: #00897b;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -142,13 +180,15 @@ nav ul li a {
   display: flex;
   flex-direction: column;
   margin-top: 2em;
+  background-size: cover;
 }
 .results-page .category-list .category-container .results-list .movie-card img {
   height: 300px;
   width: auto;
-  -webkit-box-shadow: 5px 5px 10px 0px rgba(143, 143, 143, 0.5);
-  -moz-box-shadow: 5px 5px 10px 0px rgba(143, 143, 143, 0.5);
-  box-shadow: 5px 5px 10px 0px rgba(143, 143, 143, 0.5);
+  max-width: 200px;
+  -webkit-box-shadow: 5px 5px 10px 0px rgba(0, 137, 123, 0.5);
+  -moz-box-shadow: 5px 5px 10px 0px rgba(0, 137, 123, 0.5);
+  box-shadow: 5px 5px 10px 0px rgba(0, 137, 123, 0.5);
   -webkit-transition: transform 1s;
   transition: transform 1s;
 }
@@ -160,11 +200,14 @@ nav ul li a {
 }
 .results-page .category-list .category-container .load-more {
   text-align: center;
-  background: green;
+  background: #00897b;
   color: white;
   margin: 5vh 40vw;
   padding: 2vh 2vw;
   cursor: pointer;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
 }
 
 .modal-container {
@@ -176,31 +219,52 @@ nav ul li a {
   height: 100%;
   width: 100%;
   overflow: auto;
-  background-color: rgba(2, 0, 32, 0.9);
+  background-color: rgba(33, 35, 34, 0.9);
 }
 .modal-container .modal-content {
-  margin: 5vh 25vw;
+  margin: 30px 400px;
   background: white;
   display: flex;
   flex-direction: column;
 }
+.modal-container .modal-content .modal-header::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #29504d;
+  mix-blend-mode: hard-light;
+  z-index: 0;
+}
+.modal-container .modal-content .modal-header > * {
+  z-index: 10;
+  position: relative;
+}
 .modal-container .modal-content .modal-header {
   margin: 0;
   background-repeat: no-repeat;
-  background-size: 50vw auto;
-  height: 50vh;
+  background-size: cover;
+  height: 300px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
 }
 .modal-container .modal-content .modal-header .modal-poster {
-  width: 25vw;
-  height: auto;
-  margin-top: 5vh;
+  width: 350px;
+  text-align: center;
+  padding-top: 20px;
 }
 .modal-container .modal-content .modal-header .modal-poster img {
-  width: 100%;
+  width: 90%;
   height: auto;
+  object-fit: contain;
 }
 .modal-container .modal-content .modal-header .modal-details {
+  width: 350px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -209,12 +273,10 @@ nav ul li a {
   text-align: right;
   font-size: 20px;
   font-weight: bolder;
-  margin: 0;
 }
 .modal-container .modal-content .modal-header .modal-details .modal-movie-title {
   font-size: 30px;
   font-weight: lighter;
-  margin: 10vh 2vw 3vh 1vh;
 }
 .modal-container .modal-content .modal-header .modal-details .modal-movie-tagline {
   margin: 0;
@@ -224,11 +286,13 @@ nav ul li a {
 .modal-container .modal-content .modal-movie-description {
   display: flex;
   flex-direction: column;
-  margin: 5vh 5vw 5vh 25vw;
+  margin: 30px 30px 30px 400px;
+  font-family: "Josefin Sans", sans-serif;
   font-size: 15px;
+  color: #00897b;
 }
 .modal-container .modal-content .modal-heading {
-  color: purple;
+  color: #00897b;
 }
 
 .hide {
@@ -238,6 +302,14 @@ nav ul li a {
 .margin-top {
   margin-top: 15vh;
   margin-bottom: 10vh;
+}
+
+.category-selected {
+  background-color: #a7e6d7;
+}
+
+.search-container {
+  color: #52d2bc;
 }
 
 /*# sourceMappingURL=estilo.css.map */

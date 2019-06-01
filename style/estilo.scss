@@ -1,3 +1,23 @@
+$font: 'Josefin Sans', sans-serif;
+$color-background: rgb(167, 230, 215);
+$color-secondary: rgb(0, 137,123);
+$color-terciary: rgb(82, 210, 188);
+$color-overlay: rgb(41, 80, 77);
+@mixin fontBasic {
+  font-family: $font;
+  font-weight: lighter;
+  font-size: 11px;
+  color: $color-secondary;
+}
+
+@mixin fontResults {
+  font-family: $font;
+  font-size: 15px;
+  color: $color-secondary;
+}
+
+
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
 @import "_general";
 @import "_navbar-search";
 @import "_background";
@@ -13,3 +33,11 @@
   margin-bottom: 10vh;
 }
 
+.category-selected {
+  background-color: $color-background;
+}
+
+
+.search-container {
+  color: $color-terciary;
+}

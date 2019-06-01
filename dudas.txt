@@ -4,7 +4,32 @@ Modal
 Search
 
 
-//cómo hacer el overlay a la imagen de fondo
-//cómo obligar que el scroll sea de todo el background, no solo el modal
 
-falta el numero results y el load more
+falta el numero results en todas las categorías
+
+falta el load more de search
+
+falta el usar el background cuando no hay resultados
+
+falta el onclick cambiar background de search-bar
+
+alinear la lupa con el placeholder
+
+- resultspage
+
+- modal
+¿agregar "sin categoría" cuando no hay genre? 
+"Life is too beautiful to put everything into boxes"
+
+¿sin descripción cuando no hay descripción?
+"Who knows what this movie is about?"
+
+
+- todo responsive
+
+
+
+
+
+
+

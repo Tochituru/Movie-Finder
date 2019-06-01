@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&amp;subset=cyrillic" rel="stylesheet">
 
     <link rel=icon href=./assets/favicon.png sizes="250x250" type="image/png">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -46,13 +47,16 @@
             </ul>
         </nav>
         <header class="header">
-            <input type="text" name="" id="search-bar" placeholder="Search your movie here">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" name="" id="search-bar" placeholder="Search your movie here">
+            </div>
         </header>
         <main>
             <article class="results-page">
                 <section class="background">
                     <figure class="background-img">
-                        <img src="./assets/batman.jpg" alt="">
+                        <img src="./assets/comic-book-women-landscape.png" alt="">
                     </figure>
                     <h1>The Movie DB App</h1>
                 </section>
@@ -60,7 +64,7 @@
                     <div class="category-container category-popular">
                         <div class="category-header">
                             <h2 class="category-title">POPULAR MOVIES</h2>
-                            <a class="view-all-btn" id="view-btn-popular">View All</a>
+                            <a class="view-all-btn" id="view-btn-popular">VIEW ALL</a>
                         </div>
                         <section class="result-section">
                             <ul class="results-list" id="popular-list">
@@ -71,7 +75,7 @@
                     <div class="category-container category-top-rated">
                         <div class="category-header">
                             <h2 class="category-title">TOP RATED MOVIES</h2>
-                            <a class="view-all-btn">View All</a>
+                            <a class="view-all-btn">VIEW ALL</a>
                         </div>
                         <section class="result-section">
                             <ul class="results-list" id="top-rated-list">
@@ -82,7 +86,7 @@
                     <div class="category-container category-upcoming">
                         <div class="category-header">
                             <h2 class="category-title">UPCOMING MOVIES</h2>
-                            <a class="view-all-btn">View All</a>
+                            <a class="view-all-btn">VIEW ALL</a>
                         </div>
                         <section class="result-section">
                             <ul class="results-list" id="upcoming-list">
@@ -93,7 +97,7 @@
                     <div class="category-container category-now-playing">
                         <div class="category-header">
                             <h2 class="category-title">NOW PLAYING MOVIES</h2>
-                            <a class="view-all-btn">View All</a>
+                            <a class="view-all-btn">VIEW ALL</a>
                         </div>
                         <section class="result-section">
                             <ul class="results-list" id="now-playing-list">

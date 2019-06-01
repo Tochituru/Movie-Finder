@@ -1,11 +1,8 @@
-
 body,
 html {
   margin: 0px;
   padding: 0px;
-  font-family: "Roboto", sans-serif;
-  font-weight: lighter;
-  font-size: 11px;
+  @include fontBasic;
 }
 
 a:link,
@@ -13,19 +10,14 @@ a:visited,
 a:hover,
 a:active {
   text-decoration: none;
-  font-family: "Roboto", sans-serif;
-  font-weight: lighter;
-  font-size: 11px;
-  color: black;
+  @include fontBasic;
 }
 
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
-  font-weight: lighter;
-  font-size: 11px;
+  @include fontBasic;
   li {
     cursor: pointer;
     .fas {
@@ -33,4 +25,3 @@ ul {
     }
   }
 }
-

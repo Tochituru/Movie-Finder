@@ -1,52 +1,70 @@
 .logo {
-    padding: 0;
+  padding: 0;
+  height: 10vh;
+  figure {
+    margin: 0;
+    img {
+      max-width: 50px;
+      max-height: auto;
+      margin: 7px;
+    }
+  }
+}
+nav {
+  width: 6vw;
+  height: 100vh;
+  position: fixed;
+  overflow: auto;
+  ul {
+    li {
+      padding: 20px 0;
+      text-align: center;
+      width: 5vw;
+      height: 6vh;
+      display: block;
+      a {
+        margin: 5px;
+        display: block;
+      }
+    }
+    li:hover {
+      background: $color-terciary;
+      color: white;
+
+      .far {
+        display: none;
+      }
+      .fas {
+        display: block;
+      }
+    }
+  }
+}
+.header {
+  margin-left: 5vw;
+  width: 95vw;
+  position: fixed;
+  z-index: 1;
+  .search-container {
+    width: 100%;
     height: 10vh;
-    figure {
-      margin: 0;
-      img {
-        width: 70%;
-        max-height: auto;
-        margin: 7px;
-      }
+    border: none;
+    display: flex;
+    background-color: white;
+    .fas {
+      align-self: center;
+      padding-left: 5%;
+      color: $color-background;
+      font-size: 20px;
     }
-  }
-  nav {
-    width: 6vw;
-    height: 100vh;
-    position: fixed;
-    overflow: auto;
-    ul {
-      li {
-        padding: 20px 0;
-        text-align: center;
-        width: 5vw;
-        height: 6vh;
-        border: 1px solid black;
-  
-        a {
-          margin: 5px;
-          display: block;
-          font-size: 11px;
-        }
-      }
-    }
-  }
-  .header {
-    margin-left: 5vw;
-    width: 95vw;
-    position: fixed;
-    z-index: 1;
     input {
-      width: 100%;
-      height: 10vh;
+      width: 90%;
       border: none;
-      padding-left: 5vw;
-      background: blue;
     }
     input[type="text"]::placeholder {
-      font-family: "Roboto", sans-serif;
-      font-weight: lighter;
+      @include fontBasic;
+      font-size: 20px;
+      padding: 5px;
     }
   }
-  
-  
+}
