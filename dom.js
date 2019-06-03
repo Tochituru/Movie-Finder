@@ -24,20 +24,37 @@ const totalResultsElem = document.getElementsByClassName('total-results');
 const viewAllBtn = document.getElementsByClassName('view-all-btn');
 const loadMoreBtn = document.getElementsByClassName('load-more');
 
-function CreateResultsInCategory(categoryName, resultList, movieArray, currentPage, categoryNumberResults) {
+function CreateResultsInCategory(categoryName, resultList, movieArray, currentPage, categoryNumberResults, totalPages) {
     for (let j = 0; j < totalResultsElem.length; j++) {
         if (categoryName === categoryPopular) {
             totalResultsElem[0].innerText = `${categoryNumberResults} Results`;
+            if (currentPage === totalPages) {
+                loadMoreBtn[0].classList.add('hide');
+            }
         } else if (categoryName === categoryTopRated) {
             totalResultsElem[1].innerText = `${categoryNumberResults} Results`;
+            if (currentPage === totalPages) {
+                loadMoreBtn[2].classList.add('hide');
+            }
         } else if (categoryName === categoryUpcoming) {
             totalResultsElem[2].innerText = `${categoryNumberResults} Results`;
+            if (currentPage === totalPages) {
+                loadMoreBtn[2].classList.add('hide');
+            }
         } else if (categoryName === categoryNowPlaying) {
             totalResultsElem[3].innerText = `${categoryNumberResults} Results`;
+            if (currentPage === totalPages) {
+                loadMoreBtn[3].classList.add('hide');
+            }
+
         } else if (categoryName === categorySearch) {
             totalResultsElem[4].innerText = `${categoryNumberResults} Results`;
+            if (currentPage === totalPages) {
+                loadMoreBtn[4].classList.add('hide');
+            }
         }
     }
+
     for (let i = 0; i < movieArray.length; i++) {
 
         const movieCard = document.createElement('li');
@@ -77,7 +94,6 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
                 modalContent.classList.add('modal-content');
                 categoryName.appendChild(modalContainer);
                 modalContainer.appendChild(modalContent);
-
 
                 //el header del modal
                 const modalHeader = document.createElement('section');
@@ -123,7 +139,7 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
 
                 const modalMovieSummary = document.createElement('section');
                 modalMovieSummary.classList.add('modal-text');
-                modalMovieSummary.innerText = modalMovie.overview;
+                modalMovie.overview === 0 ? modalMovieSummary.innerText = 'Who knows what this movie is about?' : modalMovieSummary.innerText = modalMovie.overview;
 
                 const modalMovieGenreTitle = document.createElement('h3');
                 modalMovieGenreTitle.classList.add('modal-heading');
@@ -131,10 +147,8 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
 
                 const modalMovieGenresContent = document.createElement('div');
                 modalMovieGenresContent.classList.add('modal-text')
-                let movieGenres = modalMovie.genres.map((j) => {
-                    return ` ${j.name}`;
-                });
-                modalMovieGenresContent.innerText = movieGenres;
+                let movieGenres = modalMovie.genres.map((j) => ` ${j.name}`);
+                movieGenres.length > 0 ? modalMovieGenresContent.innerText = movieGenres : modalMovieGenresContent.innerText = `Why do you need to put everything in boxes?`;
 
                 const modalMovieReleaseDateTitle = document.createElement('h3');
                 modalMovieReleaseDateTitle.classList.add('modal-heading');
@@ -182,10 +196,11 @@ function fetchData(splice, categoryApiName, categoryName, resultList, currentPag
         .then(movie => {
             let movieObject = movie.results;
             const categoryNumberResults = movie.total_results;
+            let totalPages = movie.total_pages;
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            CreateResultsInCategory(categoryName, resultList, movieObject, pageLoaded, categoryNumberResults);
+            CreateResultsInCategory(categoryName, resultList, movieObject, pageLoaded, categoryNumberResults, totalPages);
         });
 };
 
@@ -302,13 +317,17 @@ logoBtn.onclick = () => {
     }
 
     categoryTopRated.classList.remove('hide');
-
     categoryUpcoming.classList.remove('margin-top');
     categoryUpcoming.classList.remove('hide');
     categoryTopRated.classList.remove('margin-top');
     categoryNowPlaying.classList.remove('hide');
     categoryNowPlaying.classList.remove('margin-top');
     categorySearch.classList.add('hide');
+
+    navBarBtn[0].classList.remove('category-selected');
+    navBarBtn[1].classList.remove('category-selected');
+    navBarBtn[2].classList.remove('category-selected');
+    navBarBtn[3].classList.remove('category-selected');
 
     fetchData(true, 'popular', categoryPopular, resultsPopular, pageLoaded);
     fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
@@ -331,6 +350,10 @@ navBarBtn[0].onclick = () => {
     if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
     if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide') };
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+    navBarBtn[1].classList.remove('category-selected');
+    navBarBtn[2].classList.remove('category-selected');
+    navBarBtn[3].classList.remove('category-selected');
+
 };
 navBarBtn[1].onclick = () => {
     removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
@@ -344,6 +367,10 @@ navBarBtn[1].onclick = () => {
     if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
     if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide') };
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+    navBarBtn[0].classList.remove('category-selected');
+    navBarBtn[2].classList.remove('category-selected');
+    navBarBtn[3].classList.remove('category-selected');
+
 };
 navBarBtn[2].onclick = () => {
     removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
@@ -357,6 +384,10 @@ navBarBtn[2].onclick = () => {
     if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
     if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
     if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+    navBarBtn[0].classList.remove('category-selected');
+    navBarBtn[1].classList.remove('category-selected');
+    navBarBtn[3].classList.remove('category-selected');
+
 };
 navBarBtn[3].onclick = () => {
     removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded);
@@ -371,6 +402,9 @@ navBarBtn[3].onclick = () => {
     if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
     if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
     if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide'); };
+    navBarBtn[0].classList.remove('category-selected');
+    navBarBtn[1].classList.remove('category-selected');
+    navBarBtn[2].classList.remove('category-selected');
 
 };
 
@@ -398,6 +432,7 @@ function SearchElements(categoryName, resultList, currentPage) {
         resultsSearch.children[0].remove();
     };
 
+
     fetchSearchData(categoryName, resultList, currentPage)
 };
 
@@ -411,8 +446,9 @@ function fetchSearchData(categoryName, resultList, currentPage) {
         .then(searchMovie => {
             let searchMovieObject = searchMovie.results;
             let resultsFromCategory = searchMovie.total_results;
+            let totalPages = searchMovie.total_pages;
 
-            CreateResultsInCategory(categoryName, resultList, searchMovieObject, pageLoaded, resultsFromCategory);
+            CreateResultsInCategory(categoryName, resultList, searchMovieObject, pageLoaded, resultsFromCategory, totalPages);
             console.log(searchMovieUrl);
         });
 }
