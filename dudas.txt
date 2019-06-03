@@ -5,13 +5,11 @@ Search
 
 
 
-falta el numero results en todas las categorías
-
-falta el load more de search
+Sacar botón "load more" cuando no hay más results;
 
 falta el usar el background cuando no hay resultados
 
-falta el onclick cambiar background de search-bar
+falta el onclick sacar background de nav-bar category
 
 alinear la lupa con el placeholder
 
@@ -21,8 +19,15 @@ alinear la lupa con el placeholder
 ¿agregar "sin categoría" cuando no hay genre? 
 "Life is too beautiful to put everything into boxes"
 
+let movieGenres = modalMovie.genres.map((j) => {
+                    return ` ${j.name}`;
+                });
+                error cuando es "undefined"
+
 ¿sin descripción cuando no hay descripción?
 "Who knows what this movie is about?"
+
+
 
 
 - todo responsive
