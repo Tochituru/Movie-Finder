@@ -1,29 +1,93 @@
-.logo {
-  padding: 0;
+//nav-bar search
+.header {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
   height: 10vh;
-  figure {
+  border: none;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  color: $color-terciary;
+  .logo {
+    width: 5vw;
+    background-image: url("../assets/favicon.png");
+    height: 6vh;
+    background-size: 45% auto;
+    background-repeat: no-repeat;
+    padding: 2vh 0;
     margin: 0;
-    img {
-      max-width: 50px;
-      max-height: auto;
-      margin: 7px;
+    background-position: center;
+    cursor: pointer;
+  }
+  .search-icon {
+    text-align: right;
+    width: 6vw;
+    color: $color-background;
+    font-size: 20px;
+  }
+  input {
+    width: 80vw;
+    border: none;
+    padding: 3vh;
+    flex-grow: 1;
+    @include fontBasic;
+    font-size: 20px;
+  }
+  input[type="text"]::placeholder {
+    @include fontBasic;
+    font-size: 20px;
+  }
+  .hamburger {
+    display: none;
+  }
+}
+@media screen and (max-width: $break-small) {
+  .header {
+    .logo {
+      width: 12vw;
+    }
+    .search-icon {
+      color: $color-background;
+      font-size: 16px;
+    }
+    input {
+      width: 60vw;
+      color: $color-secondary;
+      input[type="text"]::placeholder {
+        font-family: $font;
+        font-weight: lighter;
+        font-size: 16px;
+        color: $color-secondary;
+      }
+    }
+    .hamburger {
+      display: inline-flex;
+      width: 12vw;
+      margin: 0;
+      font-size: 16px;
+      padding-left: 2vw;
+      color: $color-background;
+      cursor: pointer;
     }
   }
 }
+
 nav {
+  margin-top: 10vh;
   width: 6vw;
-  height: 100vh;
+  height: 95vh;
   position: fixed;
   overflow: auto;
-  ul {
-    li {
+  .category-btn {
+    .nav-btn {
       padding: 20px 0;
       text-align: center;
       width: 5vw;
-      height: 6vh;
+      height: 7vh;
       display: block;
       a {
-        margin: 5px;
+        margin: 1vh 0;
         display: block;
       }
     }
@@ -40,31 +104,20 @@ nav {
     }
   }
 }
-.header {
-  margin-left: 5vw;
-  width: 95vw;
-  position: fixed;
-  z-index: 1;
-  .search-container {
+@media screen and (max-width: $break-small) {
+  nav {
+    display: none;
+    position: fixed;
     width: 100%;
-    height: 10vh;
-    border: none;
-    display: flex;
-    background-color: white;
-    .fas {
-      align-self: center;
-      padding-left: 5%;
-      color: $color-background;
-      font-size: 20px;
-    }
-    input {
-      width: 90%;
-      border: none;
-    }
-    input[type="text"]::placeholder {
-      @include fontBasic;
-      font-size: 20px;
-      padding: 5px;
+    background-color: rgb(255, 255, 255);
+    .category-btn {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .nav-btn {
+        width: 50vw;
+        border: 1px solid black;
+      }
     }
   }
 }

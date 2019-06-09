@@ -3,7 +3,8 @@ let pageLoaded = 1;
 const resultToInclude = 4;
 const resultToRemove = 15;
 
-const background = document.querySelector('.background');
+const background = document.querySelector('#background-section');
+const header = document.querySelector('h1');
 
 const bodyMain = document.querySelector('main');
 
@@ -56,7 +57,6 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
     }
 
     for (let i = 0; i < movieArray.length; i++) {
-
         const movieCard = document.createElement('li');
         movieCard.classList.add('movie-card');
 
@@ -212,7 +212,6 @@ document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming,
 document.onload = fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded)
 
 function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultList, currentPage) {
-    background.classList.add('hide');
     pageLoaded = 1;
 
     while (resultsSearch.children.length > 0) {
@@ -413,9 +412,6 @@ navBarBtn[3].onclick = () => {
 const searchElement = document.querySelector('input');
 
 function SearchElements(categoryName, resultList, currentPage) {
-
-    background.classList.add('hide');
-
     categorySearch.classList.add('margin-top');
     categorySearch.classList.remove('hide');
 
@@ -466,18 +462,6 @@ searchElement.addEventListener('keydown', e => {
     }
 })
 
-//responsive
-const hamburgerMenu = document.getElementById('hamburger');
-const navBar = document.getElementById('nav-bar');
-hamburgerMenu.onclick = () => {
-    if (navBar.style.display = 'none') {
-        navBar.style.display = 'block';
-        background.classList.add('hide');
-    } else {
-        navBar.style.display = 'none';
-        background.classList.remove('hide');
 
-    }
 
-    console.log('it shoud work')
-}
+

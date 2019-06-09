@@ -4,18 +4,9 @@ Modal
 Search
 
 
-alinear la lupa con el placeholder
-
-Texto si no hay resultados
-        if (categoryNumberResults !== 0) {
-            background.classList.add('hide')
-        } else {
-            background.classList.remove('hide');
-        };
-
-
 
 - todo responsive
+¿cómo saco el nth child y lo agrego en la result list?
 
 
 

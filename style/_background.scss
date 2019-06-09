@@ -1,5 +1,12 @@
 .background {
   position: relative;
+  background-image: url("../assets/comic-book-women-landscape.png");
+  margin: 0;
+  height: 61vh;
+  overflow: hidden;
+  background-color: $color-background;
+  background-size: cover;
+  background-blend-mode: overlay;
   h1 {
     text-align: center;
     position: absolute;
@@ -8,18 +15,16 @@
     font-size: 50px;
     text-shadow: 3px 3px 5px $color-terciary;
   }
-  figure {
-    margin: 0;
-    height: 60vh;
-    overflow: hidden;
-    background-color: $color-terciary;
-    background-size: cover;
-    mix-blend-mode: overlay;
-    img {
-      width: 100%;
-      height: auto;
+}
+
+@media screen and (max-width: $break-small) {
+  .background {
+    height: 40vh;
+    background-position: center bottom;
+    h1 {
+      left: 25%;
+      top: 50%;
+      font-size: 20px;
     }
   }
 }
-
-

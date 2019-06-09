@@ -58,6 +58,7 @@
           text-align: right;
           font-size: 20px;
           font-weight: bolder;
+          margin: 5px 5px;
         }
         .modal-movie-title {
           font-size: 30px;
@@ -77,7 +78,34 @@
       @include fontResults;
     }
     .modal-heading {
-      color:$color-secondary;
+      color: $color-secondary;
+    }
+  }
+}
+
+@media screen and (max-width: $break-small) {
+  .modal-container {
+    .modal-content {
+      margin: 0;
+      .modal-header {
+        height: 200px;
+        .modal-poster {
+          display: none;
+        }
+        .modal-details {
+          width: 100%;
+          align-content: center;
+          .modal-movie-title,
+          .modal-movie-tagline {
+            text-align: center;
+            margin: 20px 0;
+          }
+        }
+      }
+      .modal-movie-description {
+        margin: 30px 20px 50px 20px;
+
+      }
     }
   }
 }
