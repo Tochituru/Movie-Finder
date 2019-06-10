@@ -147,6 +147,7 @@ nav .category-btn li:hover .fas {
   nav {
     display: none;
     position: fixed;
+    z-index: 1;
     width: 100%;
     background-color: white;
   }
@@ -154,10 +155,11 @@ nav .category-btn li:hover .fas {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: 15px;
   }
   nav .category-btn .nav-btn {
-    width: 50vw;
-    border: 1px solid black;
+    width: 45vw;
   }
 }
 .background {
@@ -211,6 +213,7 @@ nav .category-btn li:hover .fas {
   padding: 0 3vw;
   margin: 10vh 0 0 0;
   justify-content: space-between;
+  align-content: flex-start;
   font-family: "Josefin Sans", sans-serif;
   font-size: 15px;
   color: #00897b;
@@ -220,7 +223,8 @@ nav .category-btn li:hover .fas {
   font-size: 20px;
   font-weight: bold;
 }
-.results-page .category-list .category-container .category-header .category-title {
+.results-page .category-list .category-container .category-header .category-title,
+.results-page .category-list .category-container .category-header .total-results {
   margin: 0;
 }
 .results-page .category-list .category-container .results-list {
@@ -275,13 +279,13 @@ nav .category-btn li:hover .fas {
   .results-page .category-list {
     max-width: 100vw;
   }
-  .results-page .category-list .category-container {
-    justify-content: space-evenly;
+  .results-page .category-list .category-container .category-header {
+    margin: 10vh 12px 0 12px;
+    justify-content: space-between;
   }
-  .results-page .category-list .category-container .category-header a {
-    font-size: 15px;
-  }
-  .results-page .category-list .category-container .category-header .category-title {
+  .results-page .category-list .category-container .category-header a,
+.results-page .category-list .category-container .category-header .category-title,
+.results-page .category-list .category-container .category-header .total-results {
     font-size: 15px;
   }
   .results-page .category-list .category-container .results-list {
@@ -300,8 +304,11 @@ nav .category-btn li:hover .fas {
     height: auto;
     width: 100%;
   }
-  .results-page .category-list .category-container .results-list :nth-child(4) {
+  .results-page .category-list .category-container .results-list .movie-card.home:last-child {
     display: none;
+  }
+  .results-page .category-list .category-container .load-more {
+    margin: 5vh 35vw;
   }
 }
 .modal-container {

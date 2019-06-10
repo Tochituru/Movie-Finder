@@ -24,7 +24,8 @@ const totalResultsElem = document.getElementsByClassName('total-results');
 const viewAllBtn = document.getElementsByClassName('view-all-btn');
 const loadMoreBtn = document.getElementsByClassName('load-more');
 
-function CreateResultsInCategory(categoryName, resultList, movieArray, currentPage, categoryNumberResults, totalPages) {
+function CreateResultsInCategory(splice, categoryName, resultList, movieArray, currentPage, categoryNumberResults, totalPages) {
+
     for (let j = 0; j < totalResultsElem.length; j++) {
         if (categoryName === categoryPopular) {
             totalResultsElem[0].innerText = `${categoryNumberResults} Results`;
@@ -59,6 +60,9 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
 
         const movieCard = document.createElement('li');
         movieCard.classList.add('movie-card');
+        if (splice) {
+            movieCard.classList.add('home');
+        }
 
         const moviePicture = document.createElement('figure');
         moviePicture.classList.add('movie-img');
@@ -154,7 +158,8 @@ function CreateResultsInCategory(categoryName, resultList, movieArray, currentPa
                 modalMovieReleaseDateTitle.classList.add('modal-heading');
                 modalMovieReleaseDateTitle.innerText = 'RELEASE DATE';
                 const modalMovieReleaseDateContent = document.createElement('div');
-                modalMovieReleaseDateContent.innerText = modalMovie.release_date;
+                dataReleaseDate = modalMovie.release_date;
+                dataReleaseDate.length > 0 ?modalMovieReleaseDateContent.innerText = modalMovie.release_date: modalMovieReleaseDateContent.innerText = `How did this even got released?`
                 modalMovieReleaseDateContent.classList.add('modal-text')
 
                 modalContent.appendChild(modalMovieDescription);
@@ -200,7 +205,7 @@ function fetchData(splice, categoryApiName, categoryName, resultList, currentPag
             if (splice) {
                 movieObject.splice(resultToInclude, resultToRemove)
             }
-            CreateResultsInCategory(categoryName, resultList, movieObject, pageLoaded, categoryNumberResults, totalPages);
+            CreateResultsInCategory(splice, categoryName, resultList, movieObject, pageLoaded, categoryNumberResults, totalPages);
         });
 };
 
@@ -234,6 +239,7 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
 
     if (categoryName === categoryPopular) {
         categoryPopular.classList.add('margin-top');
+        resultsPopular.classList.remove('home');
         categoryTopRated.classList.add('hide');
         categoryUpcoming.classList.add('hide');
         categoryNowPlaying.classList.add('hide');
@@ -243,6 +249,7 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         loadMoreBtn[0].classList.remove('hide');
     } else if (categoryName === categoryTopRated) {
         categoryTopRated.classList.add('margin-top');
+        resultsTopRated.classList.remove('home');
         categoryPopular.classList.add('hide');
         categoryUpcoming.classList.add('hide');
         categoryNowPlaying.classList.add('hide');
@@ -252,6 +259,7 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         loadMoreBtn[1].classList.remove('hide');
     } else if (categoryName === categoryUpcoming) {
         categoryUpcoming.classList.add('margin-top');
+        resultsUpcoming.classList.remove('home');
         categoryPopular.classList.add('hide');
         categoryTopRated.classList.add('hide');
         categoryNowPlaying.classList.add('hide');
@@ -261,6 +269,7 @@ function removeChildrenAndNewData(splice, categoryApiName, categoryName, resultL
         loadMoreBtn[2].classList.remove('hide');
     } else if (categoryName === categoryNowPlaying) {
         categoryNowPlaying.classList.add('margin-top');
+        resultsNowPlaying.classList.remove('home');
         categoryPopular.classList.add('hide');
         categoryTopRated.classList.add('hide');
         categoryUpcoming.classList.add('hide');
@@ -448,8 +457,7 @@ function fetchSearchData(categoryName, resultList, currentPage) {
             let resultsFromCategory = searchMovie.total_results;
             let totalPages = searchMovie.total_pages;
 
-            CreateResultsInCategory(categoryName, resultList, searchMovieObject, pageLoaded, resultsFromCategory, totalPages);
-            console.log(searchMovieUrl);
+            CreateResultsInCategory(false, categoryName, resultList, searchMovieObject, pageLoaded, resultsFromCategory, totalPages);
         });
 }
 
@@ -470,14 +478,137 @@ searchElement.addEventListener('keydown', e => {
 const hamburgerMenu = document.getElementById('hamburger');
 const navBar = document.getElementById('nav-bar');
 hamburgerMenu.onclick = () => {
-    if (navBar.style.display = 'none') {
+    if (navBar.style.display === 'none') {
         navBar.style.display = 'block';
         background.classList.add('hide');
+        navBarBtn[0].onclick = () => {
+            navBar.style.display = 'none';
+            background.classList.remove('hide');
+            removeChildrenAndNewData(false, 'popular', categoryPopular, resultsPopular, pageLoaded);
+            if (!navBarBtn[0].classList.contains('category-selected')) {
+                navBarBtn[0].classList.add('category-selected');
+            };
+            if (!categoryPopular.classList.contains('margin-top')) {
+                categoryPopular.classList.add('margin-top')
+            };
+            if (categoryPopular.classList.contains('hide')) {
+                categoryPopular.classList.remove('hide')
+            };
+            if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
+            if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide') };
+            if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+            navBarBtn[1].classList.remove('category-selected');
+            navBarBtn[2].classList.remove('category-selected');
+            navBarBtn[3].classList.remove('category-selected');
+
+        };
+        navBarBtn[1].onclick = () => {
+            navBar.style.display = 'none';
+            background.classList.remove('hide');
+
+            removeChildrenAndNewData(false, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
+            if (!navBarBtn[1].classList.contains('category-selected')) {
+                navBarBtn[1].classList.add('category-selected');
+            };
+            if (!categoryTopRated.classList.contains('margin-top')) { categoryTopRated.classList.add('margin-top') };
+            if (categoryTopRated.classList.contains('hide')) {
+                categoryTopRated.classList.remove('hide')
+            };
+            if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
+            if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide') };
+            if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+            navBarBtn[0].classList.remove('category-selected');
+            navBarBtn[2].classList.remove('category-selected');
+            navBarBtn[3].classList.remove('category-selected');
+
+        };
+        navBarBtn[2].onclick = () => {
+            navBar.style.display = 'none';
+            background.classList.remove('hide');
+
+            removeChildrenAndNewData(false, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
+            if (!navBarBtn[2].classList.contains('category-selected')) {
+                navBarBtn[2].classList.add('category-selected');
+            };
+            if (!categoryUpcoming.classList.contains('margin-top')) { categoryUpcoming.classList.add('margin-top') };
+            if (categoryUpcoming.classList.contains('hide')) {
+                categoryUpcoming.classList.remove('hide')
+            };
+            if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
+            if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
+            if (!categoryNowPlaying.classList.contains('hide')) { categoryNowPlaying.classList.add('hide') };
+            navBarBtn[0].classList.remove('category-selected');
+            navBarBtn[1].classList.remove('category-selected');
+            navBarBtn[3].classList.remove('category-selected');
+
+        };
+        navBarBtn[3].onclick = () => {
+            navBar.style.display = 'none';
+            background.classList.remove('hide');
+
+            removeChildrenAndNewData(false, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded);
+            categoryUpcoming.classList.add('hide');
+            if (!navBarBtn[3].classList.contains('category-selected')) {
+                navBarBtn[3].classList.add('category-selected');
+            };
+            if (!categoryNowPlaying.classList.contains('margin-top')) { categoryNowPlaying.classList.add('margin-top') };
+            if (categoryNowPlaying.classList.contains('hide')) {
+                categoryNowPlaying.classList.remove('hide')
+            };
+            if (!categoryPopular.classList.contains('hide')) { categoryPopular.classList.add('hide') };
+            if (!categoryTopRated.classList.contains('hide')) { categoryTopRated.classList.add('hide') };
+            if (!categoryUpcoming.classList.contains('hide')) { categoryUpcoming.classList.add('hide'); };
+            navBarBtn[0].classList.remove('category-selected');
+            navBarBtn[1].classList.remove('category-selected');
+            navBarBtn[2].classList.remove('category-selected');
+
+        };
+        logoBtn.onclick = () => {
+            navBar.style.display = 'none';
+            background.classList.remove('hide');
+
+            while (resultsPopular.children.length > 0) {
+                resultsPopular.children[0].remove();
+            }
+            while (resultsTopRated.children.length > 0) {
+                resultsTopRated.children[0].remove();
+            }
+            while (resultsUpcoming.children.length > 0) {
+                resultsUpcoming.children[0].remove();
+            }
+            while (resultsNowPlaying.children.length > 0) {
+                resultsNowPlaying.children[0].remove();
+            }
+
+            categoryPopular.classList.remove('hide');
+            categoryPopular.classList.remove('margin-top');
+            for (let i = 0; i < viewAllBtn.length; i++) {
+                totalResultsElem[i].classList.add('hide');
+                viewAllBtn[i].classList.remove('hide');
+                loadMoreBtn[i].classList.add('hide');
+            }
+
+            categoryTopRated.classList.remove('hide');
+            categoryUpcoming.classList.remove('margin-top');
+            categoryUpcoming.classList.remove('hide');
+            categoryTopRated.classList.remove('margin-top');
+            categoryNowPlaying.classList.remove('hide');
+            categoryNowPlaying.classList.remove('margin-top');
+            categorySearch.classList.add('hide');
+
+            navBarBtn[0].classList.remove('category-selected');
+            navBarBtn[1].classList.remove('category-selected');
+            navBarBtn[2].classList.remove('category-selected');
+            navBarBtn[3].classList.remove('category-selected');
+
+            fetchData(true, 'popular', categoryPopular, resultsPopular, pageLoaded);
+            fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
+            fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
+            fetchData(true, 'now_playing', categoryNowPlaying, resultsNowPlaying, pageLoaded);
+        }
     } else {
         navBar.style.display = 'none';
         background.classList.remove('hide');
-
     }
 
-    console.log('it shoud work')
 }

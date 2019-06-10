@@ -108,15 +108,17 @@ nav {
   nav {
     display: none;
     position: fixed;
+    z-index: 1;
     width: 100%;
     background-color: rgb(255, 255, 255);
     .category-btn {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      justify-content: space-around;
+      font-size: 15px;
       .nav-btn {
-        width: 50vw;
-        border: 1px solid black;
+        width: 45vw;
       }
     }
   }
