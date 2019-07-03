@@ -159,7 +159,7 @@ function CreateResultsInCategory(splice, categoryName, resultList, movieArray, c
                 modalMovieReleaseDateTitle.innerText = 'RELEASE DATE';
                 const modalMovieReleaseDateContent = document.createElement('div');
                 dataReleaseDate = modalMovie.release_date;
-                dataReleaseDate.length > 0 ?modalMovieReleaseDateContent.innerText = modalMovie.release_date: modalMovieReleaseDateContent.innerText = `How did this even got released?`
+                dataReleaseDate.length > 0 ? modalMovieReleaseDateContent.innerText = modalMovie.release_date : modalMovieReleaseDateContent.innerText = `How did this even got released?`
                 modalMovieReleaseDateContent.classList.add('modal-text')
 
                 modalContent.appendChild(modalMovieDescription);
@@ -610,5 +610,4 @@ hamburgerMenu.onclick = () => {
         navBar.style.display = 'none';
         background.classList.remove('hide');
     }
-
 }
