@@ -185,9 +185,14 @@ function CreateResultsInCategory(splice, categoryName, resultList, movieArray, c
                     if (e.target === modalContainer) {
                         modalContainer.style.display = 'none';
                     }
-
                 }
+                window.addEventListener('keydown', escapeKey)
 
+                function escapeKey (e) {
+                    if (e.keyCode === 27 || e.keyCode === 13) {
+                        modalContainer.style.display = 'none';
+                    }
+                }
             })
     }
 }
