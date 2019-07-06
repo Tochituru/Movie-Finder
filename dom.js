@@ -84,14 +84,12 @@ function CreateResultsInCategory(splice, categoryName, resultList, movieArray, c
 
         const movieId = movieArray[i].id;
 
-        //acá arranca el modal
         const modalMovieURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&page=${currentPage}`;
         fetch(modalMovieURL)
             .then(res => res.json())
             .then(modalMovieObject => {
                 let modalMovie = modalMovieObject;
 
-                //estos son los elementos del modal
                 const modalContainer = document.createElement('div');
                 modalContainer.classList.add('modal-container');
                 const modalContent = document.createElement('aside');
@@ -99,7 +97,6 @@ function CreateResultsInCategory(splice, categoryName, resultList, movieArray, c
                 categoryName.appendChild(modalContainer);
                 modalContainer.appendChild(modalContent);
 
-                //el header del modal
                 const modalHeader = document.createElement('section');
                 modalHeader.classList.add('modal-header');
                 modalHeader.style.backgroundImage = `url(https://image.tmdb.org/t/p/original${modalMovie.backdrop_path})`;
@@ -197,8 +194,6 @@ function CreateResultsInCategory(splice, categoryName, resultList, movieArray, c
     }
 }
 
-//fetch básico con createCategory
-
 function fetchData(splice, categoryApiName, categoryName, resultList, currentPage) {
     const movieUrl = `https://api.themoviedb.org/3/movie/${categoryApiName}?api_key=${apiKey}&page=${currentPage}`;
     fetch(movieUrl)
@@ -215,7 +210,6 @@ function fetchData(splice, categoryApiName, categoryName, resultList, currentPag
 };
 
 
-//Eventos básicos de onload
 document.onload = fetchData(true, 'popular', categoryPopular, resultsPopular, pageLoaded);
 document.onload = fetchData(true, 'top_rated', categoryTopRated, resultsTopRated, pageLoaded);
 document.onload = fetchData(true, 'upcoming', categoryUpcoming, resultsUpcoming, pageLoaded);
@@ -423,7 +417,6 @@ navBarBtn[3].onclick = () => {
 };
 
 
-//Search 
 const searchElement = document.querySelector('input');
 
 function SearchElements(categoryName, resultList, currentPage) {
@@ -479,7 +472,6 @@ searchElement.addEventListener('keydown', e => {
     }
 })
 
-//responsive
 const hamburgerMenu = document.getElementById('hamburger');
 const navBar = document.getElementById('nav-bar');
 hamburgerMenu.onclick = () => {
